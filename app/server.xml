@@ -1,0 +1,23 @@
+<server description="new server">
+    <featureManager>
+		<feature>jdbc-4.1</feature>
+		<feature>servlet-3.1</feature>
+		<feature>appSecurity-2.0</feature>
+    </featureManager>
+
+	<basicRegistry id="basic" realm="BasicRealm"> 
+	</basicRegistry>
+    
+    <httpEndpoint httpPort="9080" httpsPort="9443" id="defaultHttpEndpoint" host="*"/>
+	<dataSource id="DefaultDataSource" jndiName="jdbc/db2">
+		<jdbcDriver libraryRef="DB2JCC4Lib"/>
+		<properties.db2.jcc databaseName="Test" serverName="${env.DB2_HOST}" portNumber="${env.DB2_PORT}" currentLockTimeout="30s" user="db2inst1" password="thisisthepwd"/>
+	</dataSource>
+	<library id="DB2JCC4Lib">
+		<fileset dir="/" includes="db2jcc4.jar jdbc_LI_en"/>
+	</library>
+    <include location="GeneratedSSLInclude.xml"/>
+    <basicRegistry>
+    	<user password="" name=""></user>
+    </basicRegistry>
+</server>
