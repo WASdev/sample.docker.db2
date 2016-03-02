@@ -1,15 +1,19 @@
-db:
-  build: ./db2
-  environment:
-    LICENSE: accept
-    DB2INST1_PASSWORD: thisisthepwd
-  command: db2start
-app:
-  image: ${DOCKER_USER}/app
-  environment:
-   LICENSE: accept
-   DB2_PORT: 50000
-   DB2_HOST: ${COMPOSE_PROJECT_NAME}_db_1
-  ports:
-   - "9080"
-   - "9443"
+version: '2'
+services: 
+  db:
+    build: ./db2
+    environment:
+      LICENSE: accept
+      DB2INST1_PASSWORD: thisisthepwd
+    command: db2start
+  app:
+    image: ${DOCKER_USER}/app
+    environment:
+      DB2_PORT: 50000
+      DB2_HOST: ${COMPOSE_PROJECT_NAME}_db_1
+    ports:
+      - "9080"
+      - "9443"
+networks:
+  default:
+    driver: overlay
